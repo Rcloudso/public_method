@@ -16,10 +16,17 @@ log = HandleLog()
 class CouponList(KeyWeb):
     coupon_url = base_url + "coupons/CouponList"
     # 发券活动查询
-    send_ac_search = ("xpath", "//div[@role='combobox']")
+    send_ac_search = ("xpath", "//div[@class='ant-select-selection__rendered']")
+    send_ac_input = ("xpath", "//div[@class='ant-select-search__field__wrap']")
     send_ac_search_first = ("xpath", "(//*[@id='test-uuid']/ul/li[1])")
     # 查询按钮
     search_button = ("xpath", "//span[text()='查询']/..")
+    # 优惠券选择
+    check_coupon = ("xpath", "//td[@class='ant-table-selection-column']")
+    # 作废按钮
+    del_coupon = ("xpath", "//span[text()='作废优惠券']/..")
+    # 作废确定按钮
+    del_sure = ("xpath", "//span[text()='确 定']/..")
     # 生成优惠券按钮
     add_button = ("xpath", "//span[text()='生成优惠券']/..")
     # 基础优惠券选择
@@ -114,6 +121,7 @@ class CouponList(KeyWeb):
         log.info("已输入生成数量{}".format(builds_num))
 
     def assert_result(self):
+        self.ele_sleep(1)
         result = self.get_text(*self.toast)
         if "成功" in result:
             return True
@@ -130,10 +138,24 @@ class CouponList(KeyWeb):
         self.open_url(self.coupon_url)
         log.info("已打开优惠券管理页面，url为: %s" % self.coupon_url)
         self.move_ele(*self.send_ac_search)
-        self.click_element(*self.send_ac_search)
-        self.input_(*self.send_ac_search, ac_name)
+        self.mouse_double_click(*self.send_ac_search)
+        self.ele_sleep(1)
+        self.mouse_input(*self.send_ac_input, ac_name)
         log.info("输入发券活动名：{}".format(ac_name))
         self.click_element(*self.send_ac_search_first)
         log.info("选择下拉列表中第一个活动: {}".format(self.get_text(*self.send_ac_search_first)))
         self.click_element(*self.search_button)
         log.info("点击 %s 按钮" % self.get_text(*self.search_button))
+
+    def check_coupon_list(self):
+        self.click_element(*self.check_coupon)
+        log.info("勾选首个优惠券")
+        self.click_element(*self.del_coupon)
+        log.info("点击 %s 按钮" % self.get_text(*self.del_coupon))
+        log.info("点击 %s 按钮" % self.get_text(*self.del_sure))
+        self.click_element(*self.del_sure)
+
+    def del_cp_coupon(self, ac_name):
+        self.search_ac_cp(ac_name)
+        self.check_coupon_list()
+        return self.assert_result()

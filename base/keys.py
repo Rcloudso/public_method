@@ -239,8 +239,7 @@ class KeyWeb:
         """
         try:
             js = "return arguments[0].innerHTML"
-            self.driver.execute_script(js, self.loctor(name, value))
-            return True
+            return self.driver.execute_script(js, self.loctor(name, value))
         except Exception as e:
             log.error(e)
             return False
@@ -269,6 +268,40 @@ class KeyWeb:
         :return:
         """
         ActionChains(self.driver).move_to_element(self.loctor(name, value)).perform()
+        return self
+
+    def mouse_input(self, name, value, text):
+        ActionChains(self.driver).send_keys_to_element(self.loctor(name, value), text).perform()
+        return self
+
+    def move_ele_click(self, name, value, xoffset, yoffset):
+        """
+        将鼠标滑动至目标元素处
+        :param name: 元素定位方法
+        :param value: 元素定位的值
+        :param xoffset: 元素的x坐标
+        :param yoffset: 元素的y坐标
+        :return:
+        """
+        ActionChains(self.driver).move_to_element(self.loctor(name, value)).move_by_offset(xoffset,
+                                                                                           yoffset).click().perform()
+        return self
+
+    def mouse_click(self, name, value):
+        ActionChains(self.driver).click(on_element=self.loctor(name, value)).perform()
+        return self
+
+    def mouse_double_click(self, name, value):
+        ActionChains(self.driver).double_click(on_element=self.loctor(name, value)).perform()
+        return self
+
+    def get_location(self, name, value, coordinate):
+        if self.loctor(name, value):
+            if coordinate == "x" or "y":
+                return self.loctor(name, value).location.get(coordinate)
+            else:
+                raise Exception("请输入坐标轴'x'或者'y'！")
+        return False
 
     # select方法封装,元素必须要有select标签
     def select_(self, name, value):
