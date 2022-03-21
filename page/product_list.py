@@ -65,7 +65,7 @@ class ProductList(KeyWeb):
     # 增加产品确定按钮
     add_sure = ("xpath", "//span[text()='确 定']/..")
     # 提示语
-    toast = ("xpath", "//div[@class='ant-message']/span/div/div/div/span")
+    toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
 
     def product_must(self, product_id, product_name, offical_price):
         self.open_url(self.product_url)

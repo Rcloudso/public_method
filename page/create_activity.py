@@ -68,7 +68,7 @@ class CreateActivity(KeyWeb):
     save_button = ("xpath", "//span[contains(text(), '保存')]/..")
 
     # 提示语
-    toast = ("xpath", "//div[@class='ant-message']/span/div/div/div/span")
+    toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
 
     def deal_time(self):
         remove1_status = self.js_remove("readonly", *self.activity_start_time)

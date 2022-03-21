@@ -58,7 +58,7 @@ class AddGoods(KeyWeb):
     remake = ("id", "goodsComment")
 
     # 提示语
-    toast = ("xpath", "//div[@class='ant-message']/span/div/div/div/span")
+    toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
 
     def deal_img(self):
         self.click_element(*self.img_check)

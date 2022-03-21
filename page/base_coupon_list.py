@@ -40,7 +40,7 @@ class BaseCouponList(KeyWeb):
     # 二级确认
     second_sure = ("xpath", "(//span[contains(text(), '确')]/..)[2]")
     # 提示语
-    toast = ("xpath", "//div[@class='ant-message']/span/div/div/div/span")
+    toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
     # 确定后，每一栏报错时显示的信息
     error_msg = ("xpath", "//div[@class='ant-form-explain']")
 
@@ -135,15 +135,15 @@ class BaseCouponList(KeyWeb):
         # self.refresh()
         self.ele_wait(*self.del_base_coupon_button, 8)
         self.click_element(*self.del_base_coupon_button)
-        log.info("已点击%s按钮" % self.get_text(*self.del_base_coupon_button))
+        log.info("已点击 %s 按钮" % self.get_text(*self.del_base_coupon_button))
         try:
             self.ele_sleep(1)
             self.click_element(*self.add_sure)
-            log.info("已点击%s按钮" % self.get_text(*self.add_sure))
+            log.info("已点击 %s 按钮" % self.get_text(*self.add_sure))
             self.ele_sleep(1)
         except Exception:
             self.ele_sleep(1)
             self.click_element(*self.second_sure)
-            log.info("已点击%s按钮" % self.get_text(*self.second_sure))
+            log.info("已点击 %s 按钮" % self.get_text(*self.second_sure))
             self.ele_sleep(1)
         log.info("已删除基础优惠券")

@@ -5,12 +5,12 @@
 
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from My_option.Log import log
+from My_option.Log_color import HandleLog
 
-log = log()
+log = HandleLog()
 
 
 class KeyWeb:
@@ -66,6 +66,11 @@ class KeyWeb:
     def input_(self, name, value, text):
         ele = self.loctor(name, value)
         # ele.clear()
+        ele.send_keys(text)
+
+    def clear_input(self, name, value, text):
+        ele = self.loctor(name, value)
+        ele.clear()
         ele.send_keys(text)
 
     # 切换默认界面，每次切换iframe都要切换回来；切换句柄时视情况而定
@@ -293,6 +298,11 @@ class KeyWeb:
 
     def mouse_double_click(self, name, value):
         ActionChains(self.driver).double_click(on_element=self.loctor(name, value)).perform()
+        return self
+
+    def mouse_clear_input(self, name, value, text):
+        ActionChains(self.driver).key_down(Keys.CONTROL, self.loctor(name, value)).send_keys('a').key_up(
+            Keys.CONTROL).send_keys(Keys.BACKSPACE).send_keys(text).perform()
         return self
 
     def get_location(self, name, value, coordinate):

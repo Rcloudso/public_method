@@ -54,7 +54,7 @@ class CouponList(KeyWeb):
     # 添加确定
     add_sure = ("xpath", "(//span[text()='确']/..)[2]")
     # 提示语
-    toast = ("xpath", "//div[@class='ant-message']/span/div/div/div/span")
+    toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
 
     def deal_search(self, send_ac_search):
         self.click_element(*self.send_ac_search)
