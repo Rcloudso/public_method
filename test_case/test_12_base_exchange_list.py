@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2022/3/19
+# @Time    : 2022/3/21
 # @Author  : 阿宋
-# @File    : test_01_8_del_coupon.py
-from unittest import skipIf
+# @File    : test_12_base_exchange_list.py
+
+
+from unittest import skip, skipIf
 
 from base.browser_driver import cache_chrome_driver
-from page.coupon_list import CouponList
+from page.exchange_base_code_list import BaseExchangeCodeList
 from page.login_page import Login
 import unittest
-from ddt import ddt, data, unpack
+from ddt import ddt, file_data, data, unpack
 
 
 @ddt
-class TestDelCoupon(unittest.TestCase):
+class TestBaseExchange(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.driver = cache_chrome_driver()
         cls.lg = Login(cls.driver)
-        cls.cl = CouponList(cls.driver)
+        cls.ecl = BaseExchangeCodeList(cls.driver)
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -31,10 +33,11 @@ class TestDelCoupon(unittest.TestCase):
         status = self.lg.login(account, password)
         self.assertTrue(status, "登陆成功了")
 
-    @data("小宋")
-    def test_02_del_coupon(self, ac_name):
-        status = self.cl.del_cp_coupon(ac_name)
-        self.assertTrue(status, "作废优惠券失败")
+    # @skip
+    @file_data("../test_data/add_exchange_data.yaml")
+    def test_02_add_base_exchange(self, **kwargs):
+        status = self.ecl.add_exchange_code(kwargs['exchange_name'], kwargs['exchange_price'])
+        self.assertTrue(status, "基础兑换码添加失败")
 
 
 if __name__ == '__main__':

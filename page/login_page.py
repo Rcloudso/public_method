@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 from base.keys import KeyWeb
-from base.browser_driver import chrome_driver
 from read_config.Read_config import readconfig
 from My_option.Log_color import HandleLog
 

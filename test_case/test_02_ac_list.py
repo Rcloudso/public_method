@@ -2,7 +2,7 @@
 # Author:Worker 
 # FileName:test_01_2_create_ac
 # DateTime:2022/3/17
-from unittest import skip
+from unittest import skip, skipIf
 
 from base.browser_driver import cache_chrome_driver
 from page.login_page import Login
@@ -26,11 +26,13 @@ class TestLogin(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.driver.quit()
 
-    # @data(["sun", "qdwx@2021"])
-    # @unpack
-    # def test_01_login(self, account, password):
-    #     status = self.lg.login(account, password)
-    #     self.assertTrue(status, "登陆成功了")
+    # 调试用
+    @skipIf(AttributeError, "已登录，无需登录")
+    @data(["sun", "qdwx@2021"])
+    @unpack
+    def test_01_login(self, account, password):
+        status = self.lg.login(account, password)
+        self.assertTrue(status, "登陆成功了")
 
     @skip
     @file_data("../test_data/create_activity.yaml")

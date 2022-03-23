@@ -2,13 +2,13 @@
 # @Time    : 2022/3/21
 # @Author  : 阿宋
 # @File    : test_01_10_business_coupon.py
-from unittest import skip
+from unittest import skip, skipIf
 
 from base.browser_driver import cache_chrome_driver
 from page.coupon_business_list import CouponBusinessList
 from page.login_page import Login
 import unittest
-from ddt import ddt, file_data, data
+from ddt import ddt, file_data, data, unpack
 
 
 @ddt
@@ -24,11 +24,12 @@ class TestCouponBusiness(unittest.TestCase):
         cls.driver.quit()
 
     # 调试用
-    # @data(["sun", "qdwx@2021"])
-    # @unpack
-    # def test_01_login(self, account, password):
-    #     status = self.lg.login(account, password)
-    #     self.assertTrue(status, "登陆成功了")
+    @skipIf(AttributeError, "已登录，无需登录")
+    @data(["sun", "qdwx@2021"])
+    @unpack
+    def test_01_login(self, account, password):
+        status = self.lg.login(account, password)
+        self.assertTrue(status, "登陆成功了")
 
     # @skip
     @file_data("../test_data/add_business_data.yaml")

@@ -71,9 +71,8 @@ class KeyWeb:
         ele.send_keys(text)
 
     def clear_input(self, name, value, text):
-        ele = self.loctor(name, value)
-        ele.clear()
-        ele.send_keys(text)
+        self.loctor(name, value).clear()
+        self.loctor(name, value).send_keys(text)
 
     # 切换默认界面，每次切换iframe都要切换回来；切换句柄时视情况而定
     def default(self):
@@ -84,7 +83,7 @@ class KeyWeb:
         sleep(int(text))
 
     # 显示等待
-    def ele_wait(self, name, value, text):
+    def ele_wait(self, name, value, text=10):
         """
         等待指定的元素加载出来，超时会报timeout
         :param name: 元素定位方法
@@ -92,7 +91,7 @@ class KeyWeb:
         :param text: 等待该元素加载的最大等待时间
         :return:
         """
-        return WebDriverWait(self.driver, text, 0.5).until(
+        return WebDriverWait(self.driver, text).until(
             lambda el: self.loctor(name, value), message='元素查找失败')
 
     # 退出，退出浏览器驱动

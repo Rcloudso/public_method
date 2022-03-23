@@ -1,0 +1,4 @@
+- exchange_name: "话费"
+  send_ac: "宋"
+  use_ac: "宋"
+  builds_num: "1"

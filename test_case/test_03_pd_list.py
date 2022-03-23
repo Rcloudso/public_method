@@ -2,7 +2,7 @@
 # @Time    : 2022/3/18
 # @Author  : 阿宋
 # @File    : test_01_3_pd_list.py
-from unittest import skip
+from unittest import skip, skipIf
 
 from base.browser_driver import cache_chrome_driver
 from page.product_list import ProductList
@@ -13,21 +13,21 @@ from ddt import ddt, file_data, data, unpack
 
 @ddt
 class TestAddProduct(unittest.TestCase):
-    # @classmethod
     def setUp(self) -> None:
         self.driver = cache_chrome_driver()
         self.lg = Login(self.driver)
         self.ap = ProductList(self.driver)
 
-    # @classmethod
     def tearDown(self) -> None:
         self.driver.quit()
 
-    # @data(["sun", "qdwx@2021"])
-    # @unpack
-    # def test_01_login(self, account, password):
-    #     status = self.lg.login(account, password)
-    #     self.assertTrue(status, "登陆成功了")
+    # 调试用
+    @skipIf(AttributeError, "已登录，无需登录")
+    @data(["sun", "qdwx@2021"])
+    @unpack
+    def test_01_login(self, account, password):
+        status = self.lg.login(account, password)
+        self.assertTrue(status, "登陆成功了")
 
     # @skip
     @file_data("../test_data/add_product.yaml")

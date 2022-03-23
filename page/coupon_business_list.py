@@ -21,7 +21,7 @@ class CouponBusinessList(KeyWeb):
     # 活动名称输入选择框
     ac_name = ("xpath", "//div[@id='activityId']/div/div")
     # 第一个符合条件的选项
-    ac_name_first = ("xpath", "(//*[@id='test-uuid']/ul/li[1])")
+    ac_name_first = ("xpath", "//*[@id='test-uuid']/ul/li[1]")
     # 业务名称输入框
     business_input = ("xpath", "//input[@placeholder='请输入业务名称' and @maxlength='20']")
     # 确定按钮
