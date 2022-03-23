@@ -9,7 +9,7 @@ from page.login_page import Login
 import unittest
 
 
-class TestAddCoupon(unittest.TestCase):
+class TestDeleteBase(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = cache_chrome_driver()
         self.lg = Login(self.driver)

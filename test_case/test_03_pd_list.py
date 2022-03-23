@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2022/3/18
 # @Author  : 阿宋
-# @File    : test_01_3_add_pd.py
+# @File    : test_01_3_pd_list.py
 from unittest import skip
 
 from base.browser_driver import cache_chrome_driver
@@ -29,7 +29,7 @@ class TestAddProduct(unittest.TestCase):
     #     status = self.lg.login(account, password)
     #     self.assertTrue(status, "登陆成功了")
 
-    @skip
+    # @skip
     @file_data("../test_data/add_product.yaml")
     def test_02_add_product(self, **kwargs):
         status = self.ap.add_product_must(kwargs["product_id"], kwargs["product_name"], kwargs["offical_price"])
@@ -43,7 +43,7 @@ class TestAddProduct(unittest.TestCase):
                                          kwargs["account_msg"], kwargs["brand"], kwargs["store_url"])
         self.assertTrue(status, "添加产品失败啦")
 
-    @skip
+    # @skip
     def test_04_up_down_product(self):
         status = self.ap.updown_product()
         if status:

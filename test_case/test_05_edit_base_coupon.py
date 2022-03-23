@@ -12,7 +12,7 @@ from ddt import ddt, data, unpack
 
 
 @ddt
-class TestAddCoupon(unittest.TestCase):
+class TestEditBase(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = cache_chrome_driver()
         self.lg = Login(self.driver)
@@ -21,13 +21,14 @@ class TestAddCoupon(unittest.TestCase):
     def tearDown(self) -> None:
         self.driver.quit()
 
+    # @skip
     @data("1122")
     def test_01_edit_base_must(self, coupon_name):
         status = self.bcl.edit_base_coupon_must(coupon_name)
         self.assertTrue(status, "编辑失败啦")
         self.bcl.del_base_coupon()
 
-    @skip
+    # @skip
     @data(["11223", "备注备注备注"])
     @unpack
     def test_02_edit_base_all(self, coupon_name, remake):

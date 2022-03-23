@@ -13,7 +13,7 @@ from ddt import ddt, file_data, data
 
 
 @ddt
-class TestAddProduct(unittest.TestCase):
+class TestCouponLable(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.driver = cache_chrome_driver()

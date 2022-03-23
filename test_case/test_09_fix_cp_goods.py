@@ -12,7 +12,7 @@ from ddt import ddt, data
 
 
 @ddt
-class TestAddProduct(unittest.TestCase):
+class TestCouponBatch(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = cache_chrome_driver()
         self.lg = Login(self.driver)
@@ -30,7 +30,7 @@ class TestAddProduct(unittest.TestCase):
 
     # @skip
     @data("小宋")
-    def test_02_del_coupon(self, ac_name):
+    def test_02_fix_coupon_goods(self, ac_name):
         status = self.cbl.fix_cp_goods(ac_name)
         self.assertTrue(status, "优惠券批次商品更改失败")
 

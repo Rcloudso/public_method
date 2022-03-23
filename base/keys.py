@@ -50,15 +50,17 @@ class KeyWeb:
         except NoSuchElementException:
             return False
 
+    def get_ele_list(self, value, value1):
+        return self.driver.find_element("xpath", value).find_elements("xpath", value1)
+
     # 元素点击，点击定位到的元素
     def click_element(self, name, value):
         self.loctor(name, value).click()
 
     # 切换iframe，iframe有id时，直接传值即可；否则就是传入iframe的定位方法和定位的值
-    def switch_frame(self, value, name=None):
-        if name is None:
+    def switch_frame(self, value, name="id"):
+        if name == "id":
             self.driver.switch_to.frame(value)
-
         else:
             self.driver.switch_to.frame(self.loctor(name, value))
 

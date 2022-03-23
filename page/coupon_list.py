@@ -34,25 +34,25 @@ class CouponList(KeyWeb):
     # 选择第一个基础优惠券
     first_coupon = ("xpath", "//td[@class='ant-table-selection-column']/span/label")
     # 优惠券确定按钮
-    coupon_sure = ("xpath", "(//span[text()='确 定']/..)[3]")
+    coupon_sure = ("xpath", "(//span[text()='确 定']/..)[2]")
     # 发券活动输入
     send_ac = ("id", "activityId")
     # 发券活动选择
-    send_ac_first = ("xpath", "(//*[@id='test-uuid']/ul/li[1])[6]")
+    send_ac_first = ("xpath", "//*[@id='test-uuid']/ul/li[1]")
     # 适用活动输入
     use_ac = ("id", "applyActivityId")
     # 适用活动选择
-    use_ac_first = ("xpath", "(//*[@id='test-uuid']/ul/li[1])[7]")
+    use_ac_first = ("xpath", "(//*[@id='test-uuid']/ul/li[1])[2]")
     # 生成数量
     builds_num = ("xpath", "//input[@placeholder='请输入生成数量']")
     # 需要移除readonly=True属性
     start_time = ("xpath", "//input[@placeholder='请选择生效时间']")
     end_time = ("xpath", "//input[@placeholder='请选择失效时间']")
-    now = ("xpath", "//a[contains(text(), '此刻')]")
+    now = ("link text", "此刻")
     time_check = ("xpath", "(//tr[@role='row'])[last()]/td")
-    sure = ("xpath", "//a[contains(text(), '确')]")
+    sure = ("link text", "确 定")
     # 添加确定
-    add_sure = ("xpath", "(//span[text()='确']/..)[2]")
+    add_sure = ("xpath", "//span[text()='确 定']/..")
     # 提示语
     toast = ("xpath", "(//div[@class='ant-message']/span/div/div/div/span)[last()]")
 
@@ -71,11 +71,14 @@ class CouponList(KeyWeb):
         if not remove1_status:
             log.error("移除开始时间的只读属性失败啦")
         self.click_element(*self.start_time)
+        self.ele_sleep(1)
         self.click_element(*self.now)
         log.info("已选择活动开启时间为当前时间啦")
         if not remove2_status:
             log.error("移除结束时间的只读属性失败啦")
-        self.click_element(*self.end_time)
+        # self.ele_sleep(2)
+        # self.click_element(*self.end_time)
+        self.ele_sleep(1)
         self.click_element(*self.time_check)
         self.ele_sleep(1)
         self.click_element(*self.sure)
@@ -87,9 +90,8 @@ class CouponList(KeyWeb):
         log.info("已打开优惠券管理页面，url为: %s" % self.coupon_url)
         self.click_element(*self.add_button)
         log.info("已点击生成优惠券按钮")
-        # Todo: 点击无效
-        self.ele_sleep(2)
-        self.click_element(*self.base_coupon)
+        self.ele_sleep(1)
+        self.mouse_click(*self.base_coupon)
         log.info("已点击基础券选择框")
         self.ele_sleep(1)
         self.click_element(*self.first_coupon)
@@ -124,14 +126,18 @@ class CouponList(KeyWeb):
         self.ele_sleep(1)
         result = self.get_text(*self.toast)
         if "成功" in result:
+            log.info("=====业务流程成功结束咯=====")
             return True
         else:
             log.error(result)
+            log.info("=====业务流程失败结束咯=====")
             return False
 
     def add_coupon_must(self, send_ac, use_ac, builds_num):
         self.coupon_must(send_ac, use_ac, builds_num)
         self.deal_time()
+        log.info("点击 %s 按钮" % self.get_text(*self.add_sure))
+        self.click_element(*self.add_sure)
         return self.assert_result()
 
     def search_ac_cp(self, ac_name):

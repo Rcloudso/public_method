@@ -71,9 +71,11 @@ class CouponBatchList(KeyWeb):
         self.ele_sleep(1)
         result = self.get_text(*self.toast)
         if "成功" in result:
+            log.info("=====业务流程成功结束咯=====")
             return True
         else:
             log.error(result)
+            log.info("=====业务流程失败结束咯=====")
             return False
 
     def edit_goods(self):

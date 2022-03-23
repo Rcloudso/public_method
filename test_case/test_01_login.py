@@ -17,7 +17,7 @@ class TestLogin(unittest.TestCase):
         self.driver = chrome_driver()
         self.lg = Login(self.driver)
 
-    def tearDownClass(self) -> None:
+    def tearDown(self) -> None:
         self.driver.quit()
 
     @file_data("../test_data/login.yaml")

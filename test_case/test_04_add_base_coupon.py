@@ -12,7 +12,7 @@ from ddt import ddt, file_data, data, unpack
 
 
 @ddt
-class TestAddCoupon(unittest.TestCase):
+class TestAddBase(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = cache_chrome_driver()
         self.lg = Login(self.driver)
@@ -27,7 +27,7 @@ class TestAddCoupon(unittest.TestCase):
         status = self.bcl.add_base_coupon_must(kwargs["coupon_name"], kwargs["coupon_price"], kwargs["lowest_price"])
         self.assertTrue(status, "添加基础优惠券失败啦")
 
-    @skip
+    # @skip
     @file_data("../test_data/add_base_coupon_all.yaml")
     def test_02_add_base_all(self, **kwargs):
         status = self.bcl.add_base_coupon_all(kwargs["coupon_name"], kwargs["coupon_price"], kwargs["lowest_price"],
