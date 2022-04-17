@@ -1,5 +1,0 @@
--
-  ac_name: "小宋"
-  label_name: "标签测试"
-  label_priority: "50"
-  label_logic: "select 1 from dual;"

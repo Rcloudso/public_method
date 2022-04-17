@@ -1,3 +1,0 @@
-- label_name: "修改测试"
-  label_priority: "12"
-  label_logic: "SELECT 1 FROM dual;"
