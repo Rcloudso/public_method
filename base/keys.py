@@ -5,12 +5,22 @@
 
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
+from PIL import Image, ImageEnhance
+import os
+
 from My_option.Log_color import HandleLog
 
 log = HandleLog()
+
+
+def get_img_path():
+    path1 = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    path2 = os.path.join(path1, "img")
+    return path2
 
 
 class KeyWeb:
@@ -18,7 +28,12 @@ class KeyWeb:
     # 构造函数，初始化使用，implicitly_wait为全局隐式等待时长，里面的数字可以随意更改
     def __init__(self, driver):
         self.driver = driver
-        self.driver.implicitly_wait(8)
+        self.driver.implicitly_wait(12)
+
+    def save_img(self, filename):
+        path = get_img_path() + r"\{}".format(filename)
+        self.driver.save_screenshot(path)
+        return path
 
     # 访问网址，传参为url
     def open_url(self, url):
@@ -347,3 +362,9 @@ class KeyWeb:
     #     alert.accept()
     #     alert.dismiss()
     #     alert.send_keys()
+
+
+if __name__ == '__main__':
+    a = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    b = os.path.join(a, "img")
+    print(b + r"\test.png")
