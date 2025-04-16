@@ -1,0 +1,37 @@
+# 测试环境配置文件
+
+# 基本URL
+base_url: "https://example.com"
+
+# API URL
+api_url: "https://example.com/api"
+
+# 超时设置（秒）
+timeout: 10
+
+# 等待时间
+wait_time: 10
+
+# 浏览器设置
+browser:
+  type: "chrome"
+  headless: false
+  mobile: false
+  window_size: [1920, 1080]
+
+# 测试数据
+test_data:
+  username: "test_user"
+  password: "test_password"
+
+# 截图设置
+screenshots:
+  take_on_failure: true
+  directory: "screenshots"
+  
+# 报告设置
+reports:
+  directory: "reports"
+  title: "测试报告"
+  description: "自动化测试报告"
+  tester: "QA团队" 
